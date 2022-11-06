@@ -2,6 +2,16 @@
 
 A project to master JavaScript.
 
+**usage**
+
+https://vitest.dev/guide/cli.html
+
+```shell
+pnpm run test
+```
+
+
+
 ## Promise
 
 | type                               | status |
