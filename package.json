@@ -12,6 +12,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint:script": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "preview": "vite preview",
     "prepare": "husky install"
   },
