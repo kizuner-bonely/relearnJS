@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { CancelablePromise } from './index'
+import { CancelablePromise, monitorRPC } from './index'
 
 //* CancelablePromise
 describe('CancelablePromise', () => {
@@ -19,3 +19,34 @@ describe('CancelablePromise', () => {
     await expect(p).rejects.toThrow('timeout')
   })
 })
+
+describe('RPCGroup', () => {
+  test('allSettled', async () => {
+    const p = monitorRPC([
+      createRPC(1000, true),
+      createRPC(2000, false),
+      createRPC(3000, true),
+      createRPC(4000, false),
+      createRPC(5000, true),
+    ])
+
+    const expectedAns = [
+      { status: 'fulfilled', value: true },
+      { status: 'rejected', reason: false },
+      { status: 'fulfilled', value: true },
+      { status: 'rejected', reason: false },
+      { status: 'fulfilled', value: true },
+    ]
+
+    await expect(p).resolves.toEqual(expectedAns)
+  })
+})
+
+function createRPC(timeout: number, result: boolean) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (result) resolve(true)
+      else reject(false)
+    }, timeout)
+  })
+}
