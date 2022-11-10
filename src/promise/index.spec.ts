@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { CancelablePromise, monitorRPC } from './index'
+import { CancelablePromise, monitorRPC, monitorRPC2 } from './index'
 
 //* CancelablePromise
 describe('CancelablePromise', () => {
@@ -36,6 +36,30 @@ describe('RPCGroup', () => {
       { status: 'fulfilled', value: true },
       { status: 'rejected', reason: false },
       { status: 'fulfilled', value: true },
+    ]
+
+    await expect(p).resolves.toEqual(expectedAns)
+  })
+
+  test('monitorRPC2', async () => {
+    const p = monitorRPC2([
+      createRPC(1000, true),
+      createRPC(2000, false),
+      createRPC(3000, true),
+      createRPC(4000, false),
+      createRPC(5000, true),
+    ])
+
+    const expectedAns = [
+      {
+        0: { value: true },
+        2: { value: true },
+        4: { value: true },
+      },
+      {
+        1: { reason: false },
+        3: { reason: false },
+      },
     ]
 
     await expect(p).resolves.toEqual(expectedAns)

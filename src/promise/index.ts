@@ -1,5 +1,5 @@
 export { CancelablePromise } from './timeout'
-export { monitorRPC } from './monitorRPC'
+export { monitorRPC, monitorRPC2 } from './monitorRPC'
 
 // TODO
 // * 并发 RPC 监控
