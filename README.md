@@ -17,8 +17,8 @@ pnpm run test
 | type                               | status |
 | ---------------------------------- | ------ |
 | CancelablePromise                  | ✅      |
-| monitor a group of RPC             | ⬜️      |
-| improved monitoring a group of RPC | ⬜️      |
+| monitor a group of RPC             | ✅      |
+| improved monitoring a group of RPC | ✅      |
 | execution order                    | ⬜️      |
 | self-implemented Promise           | ⬜️      |
 |                                    |        |
