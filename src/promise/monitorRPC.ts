@@ -22,3 +22,18 @@ export function monitorRPC2(RPCGroup: Promise<unknown>[]) {
     })
   })
 }
+
+export function monitorRPC3(
+  RPCGroup: Array<() => Promise<unknown>>,
+  batch: number,
+) {
+  const current = RPCGroup.slice(0, batch)
+  const rest = RPCGroup.slice(batch)
+
+  return {
+    value: monitorRPC2(current.map(cb => cb())),
+    then() {
+      return monitorRPC3(rest, batch)
+    },
+  }
+}
